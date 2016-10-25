@@ -4,9 +4,72 @@
   <% include head.ejs %>
 
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
 
+  <div class="container">
+    <div class="row">
+
+      <!-- FORM START-->
+      <div class="col-sm-6">
+        <div class="panel panel-default form">
+          <div class="panel-heading text-center">
+            Add Memo
+          </div>
+          <div class="panel-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="control-label col-sm-2">Title:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="title">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">Description:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="description">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12 text-center">
+                  <button type="submit" name="createMemo" class="btn btn-default">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- FORM END -->
+
+      <!-- MEMO START-->
+      <div class="col-sm-6">
+        <div class="panel panel-default memo">
+          <div class="panel-heading text-center">
+            Memo List
+          </div>
+          <div class="panel-body">
+
+            <div class="test">
+              <table class="table">
+                <% for (var i = 0; i < memo.length; i++) { %>
+                <tr id="row<%= memo[i].id%>">
+                  <td>
+                    <h3>
+                      <%= memo[i].title%>
+                      <span><button id="<%= memo[i].id%>" name="editMemo" class="btn btn-warning pull-right">Edit</button></span>
+                    </h3>
+                    <p><%= memo[i].description%></p>
+                  </td>
+                </tr>
+                <% } %>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- MEMO END -->
+
+    </div>
+  </div>
 
     <% include script.ejs %>
   </body>
