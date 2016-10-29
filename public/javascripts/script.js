@@ -24,14 +24,26 @@ function addMemoFromAPI(title, description) {
 }
 
 function updateCreateMemo(memo) {
-    var html = `<tr id="row${memo.id}"><td><h3>${memo.title}<span><button id="<%= memo[i].id%>" name="editMemo" class="btn btn-warning pull-right">Edit</button></span></h3><p>${memo.description}</p></td></tr>`
+    var html = `<tr id="row${memo.id}">
+                    <td>
+                        <h3>${memo.title}
+                            <span class="pull-right">
+                                <button id="${memo.id}" name="editMemo" class="btn btn-warning">Edit</button>
+                                <button id="${memo.id}" name="deleteMemo" class="btn btn-danger pull-right">Delete</button>
+                            </span>
+                        </h3>
+                    
+                        <p>${memo.description}</p>
+                    </td>
+                 </tr>`
     $("tbody:last").append(html)
     $("input[name='title']").val("")
     $("input[name='description']").val("")
 }
 
 //GET ID FOR UPDATE
-$("button[name='editMemo']").on('click', function (e) {
+
+$(document).on('click', 'button[name="editMemo"]', function(e) {
     e.preventDefault()
     var id = this.id
     getUpdate(id)
@@ -112,6 +124,56 @@ function updateMemoFromAPI(id, title, description) {
 
 function updateUpdateMemo(memo) {
     // console.log(memo)
-    var html = `<tr id="row${memo.id}"><td><h3>${memo.title}<span><button id="<%= memo[i].id%>" name="editMemo" class="btn btn-warning pull-right">Edit</button></span></h3><p>${memo.description}</p></td></tr>`
+    var html = `<tr id="row${memo.id}">
+                    <td>
+                        <h3>${memo.title}
+                            <span class="pull-right">
+                                <button id="${memo.id}" name="editMemo" class="btn btn-warning">Edit</button>
+                                <button id="${memo.id}" name="deleteMemo" class="btn btn-danger pull-right">Delete</button>
+                            </span>
+                        </h3>
+                    
+                        <p>${memo.description}</p>
+                    </td>
+                 </tr>`
     $("tbody").find(`#row${memo.id}`).replaceWith(html)
+
+    $("form").find("button[name=updateMemo]").replaceWith("<button type='submit' name='createMemo' class='btn btn-default'>Create</button>")
+    $("input[name='title']").val("")
+    $("input[name='description']").val("")
+}
+
+//DELETE
+$(document).on('click', 'button[name="deleteMemo"]', function (e) {
+    e.preventDefault()
+    var id = this.id
+    var del = confirm("Are you sure you want to delete this memo?")
+    // console.log(id);
+    if (del) {
+        deleteMemoFromAPI(id)
+    }
+})
+
+function deleteMemoFromAPI(id) {
+    // console.log(id);
+    var temp = id
+    // console.log(temp);
+    $.ajax({
+        url: "/api/deleteMemo",
+        method: "delete",
+        contentType: 'application/x-www-form-urlencoded',
+        data: {
+            id: id
+        },
+        success: function () {
+            // console.log(temp);
+            updateDeleteMemo(temp)
+        }
+    })
+}
+
+function updateDeleteMemo(id) {
+    $("tbody").find(`#row${id}`).remove()
+    $("input[name='title']").val("")
+    $("input[name='description']").val("")
 }

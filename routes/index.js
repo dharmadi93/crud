@@ -16,20 +16,20 @@ router.get('/', function(req, res, next) {
 
 router.post('/api/createMemo', function (req, res) {
 
-  console.log("create")
-  // Memos.create({
-  //   title: req.body.title,
-  //   description: req.body.description
-  // }).catch(function (err) {
-  //   res.json({
-  //     err: err.message
-  //   })
-  // }).then(function (memo) {
-  //   res.json({
-  //     status: "Data Inserted",
-  //     memo: memo
-  //   })
-  // })
+  // console.log("create")
+  Memos.create({
+    title: req.body.title,
+    description: req.body.description
+  }).catch(function (err) {
+    res.json({
+      err: err.message
+    })
+  }).then(function (memo) {
+    res.json({
+      status: "Data Inserted",
+      memo: memo
+    })
+  })
 })
 
 router.get('/api/getUpdate/:id', function (req, res) {
@@ -39,7 +39,7 @@ router.get('/api/getUpdate/:id', function (req, res) {
       id: req.params.id
     }
   }).catch(function (err) {
-    res.json(err.message)
+    res.json({err: err.message})
   }).then(function (memo) {
     res.json({
       memo:memo
@@ -57,12 +57,29 @@ router.put('/api/updateMemo', function (req, res) {
       id: req.body.id
     }
   }).catch(function (err) {
-    res.json(err.message)
+    res.json({err: err.message})
   }).then(function (memo) {
     // console.log(memo)
     res.json({
       status: "Data updated",
       memo: req.body
+    })
+  })
+})
+
+router.delete('/api/deleteMemo', function (req, res) {
+  Memos.destroy({
+    where: {
+      id: req.body.id
+    }
+  }).catch(function (err) {
+    res.json({
+      err: err.message
+    })
+  }).then(function (memo) {
+    res.json({
+      status: "Data deleted",
+      memo: memo
     })
   })
 })
