@@ -3,11 +3,15 @@ module.exports = function(sequelize, DataTypes) {
   var Memo = sequelize.define('Memo', {
     title: {
       type: DataTypes.STRING,
-      allowNull: false
+      validate: {
+        notEmpty: true
+      }
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false
+      validate: {
+        notEmpty: true
+      }
     }
   }, {
     classMethods: {
