@@ -31,6 +31,18 @@ npm install sqlite3 --save
   }
 ```
 
+## Endpoint
+
+```
+| Endpoint      | HTTP      | Description       |
+| ----------    | -----     | ------------      |
+| api/memo      | POST      | Create memo       |
+| api/memo      | GET       | Get all memo      |
+| api/memo/:id  | GET       | Get memo by id    |
+| api/memo/:id  | DELETE    | Delete memo by id |
+| api/memo      | PUT       | Update memo       |
+```
+
 ## Screenshot
 
 ### Home
