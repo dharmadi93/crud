@@ -11,8 +11,8 @@ $(document).ready(function () {
                         
                         ${data[i].title}
                         <span class="pull-right">
-                            <button id="edit$#${data[i].id}" name="editMemo" class="btn btn-warning">Edit</button>
-                            <button id="delete#${data[i].id}" name="deleteMemo" class="btn btn-danger">Delete</button>
+                            <a id="edit$#${data[i].id}" name="editMemo" class="btn btn-warning">Edit</a>
+                            <a id="delete#${data[i].id}" name="deleteMemo" class="btn btn-danger">Delete</a>
                         </span>
                     
                         <p>${data[i].description}</p>
@@ -44,8 +44,8 @@ $(document).on('click', 'button[id="createMemo"]', function (e) {
                        
                         ${data.title}
                         <span class="pull-right">
-                            <button id="edit$#${data.id}" name="editMemo" class="btn btn-warning">Edit</button>
-                            <button id="delete#${data.id}" name="deleteMemo" class="btn btn-danger">Delete</button>
+                            <a id="edit$#${data.id}" name="editMemo" class="btn btn-warning">Edit</a>
+                            <a id="delete#${data.id}" name="deleteMemo" class="btn btn-danger">Delete</a>
                         </span>
                         
                         <p>${data.description}</p>
@@ -59,7 +59,7 @@ $(document).on('click', 'button[id="createMemo"]', function (e) {
     })
 })
 
-$(document).on('click', 'button[name="deleteMemo"]', function () {
+$(document).on('click', 'a[name="deleteMemo"]', function () {
     let tempId = this.id.split("#")
     let id = tempId[1]
 
@@ -75,7 +75,7 @@ $(document).on('click', 'button[name="deleteMemo"]', function () {
     })
 })
 
-$(document).on('click', 'button[name="editMemo"]', function () {
+$(document).on('click', 'a[name="editMemo"]', function () {
     let tempId = this.id.split("#")
     let id = tempId[1]
 
@@ -91,7 +91,7 @@ $(document).on('click', 'button[name="editMemo"]', function () {
             let description = `input[name=description]`
             $("form").find(title).val(data.title)
             $("form").find(description).val(data.description)
-            $("form").find("button[name=createMemo]").replaceWith("<button type='submit' name='updateMemo' class='btn btn-default'>Update</button>")
+            $("form").find("button[id=createMemo]").replaceWith("<button id='updateMemo' type='submit' name='updateMemo' class='btn btn-default'>Update</button>")
 
             let temp = $("input[name='id']").val()
             if ( typeof temp != "undefined") {
@@ -104,7 +104,7 @@ $(document).on('click', 'button[name="editMemo"]', function () {
     })
 })
 
-$(document).on('click', 'button[name="updateMemo"]', function (e) {
+$(document).on('click', 'button[id="updateMemo"]', function (e) {
     e.preventDefault()
     let id = $("input[name='id']").val()
     let title = $("input[name='title']").val()
@@ -126,8 +126,8 @@ $(document).on('click', 'button[name="updateMemo"]', function (e) {
                     <td>
                         ${data.title}
                         <span class="pull-right">
-                            <button id="edit$#${data.id}" name="editMemo" class="btn btn-warning">Edit</button>
-                            <button id="delete#${data.id}" name="deleteMemo" class="btn btn-danger">Delete</button>
+                            <a id="edit$#${data.id}" name="editMemo" class="btn btn-warning">Edit</a>
+                            <a id="delete#${data.id}" name="deleteMemo" class="btn btn-danger">Delete</a>
                         </span>
                         <p>${data.description}</p>
                     </td>
@@ -135,7 +135,7 @@ $(document).on('click', 'button[name="updateMemo"]', function (e) {
                 `
             $(`#rowMemo${data.id}`).replaceWith(html)
 
-            $("form").find("button[name=updateMemo]").replaceWith("<button type='submit' name='createMemo' class='btn btn-default'>Create</button>")
+            $("form").find("button[id=updateMemo]").replaceWith("<button id='createMemo' type='submit' name='createMemo' class='btn btn-default'>Create</button>")
             $("input[name='title']").val("")
             $("input[name='description']").val("")
         }
