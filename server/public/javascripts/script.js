@@ -55,7 +55,7 @@ $(document).on('click', 'button[name="editMemo"]', function(e) {
 function getUpdate(id) {
     // console.log(id)
     $.ajax({
-        url: `/api/getUpdate/${id}`,
+        url: `/api/memo/${id}`,
         method: "get",
         contentType: 'application/x-www-form-urlencoded',
         data: {

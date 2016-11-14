@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
   })
 });
 
-router.post('/createMemo', function (req, res) {
+router.post('/', function (req, res) {
 
   // console.log("create")
   Memos.create({
@@ -25,14 +25,11 @@ router.post('/createMemo', function (req, res) {
       err: err.message
     })
   }).then(function (memo) {
-    res.json({
-      status: "Data Inserted",
-      memo: memo
-    })
+    res.json(memo)
   })
 })
 
-router.get('/getUpdate/:id', function (req, res) {
+router.get('/:id', function (req, res) {
   // console.log(req.params.id)
   Memos.findOne({
     where: {
@@ -41,13 +38,11 @@ router.get('/getUpdate/:id', function (req, res) {
   }).catch(function (err) {
     res.json({err: err.message})
   }).then(function (memo) {
-    res.json({
-      memo:memo
-    })
+    res.json(memo)
   })
 })
 
-router.put('/updateMemo', function (req, res) {
+router.put('/', function (req, res) {
   // console.log(req.body)
   Memos.update({
     title: req.body.title,
@@ -58,29 +53,29 @@ router.put('/updateMemo', function (req, res) {
     }
   }).catch(function (err) {
     res.json({err: err.message})
-  }).then(function (memo) {
-    // console.log(memo)
-    res.json({
-      status: "Data updated",
-      memo: req.body
-    })
-  })
-})
-
-router.delete('/deleteMemo', function (req, res) {
-  Memos.destroy({
+  }).then(Memos.findOne({
     where: {
       id: req.body.id
+    }
+  }).catch(function (err) {
+    res.json({err: err.message})
+  }).then(function (memo) {
+    console.log(memo)
+    res.json(memo)
+  }))
+})
+
+router.delete('/:id', function (req, res) {
+  Memos.destroy({
+    where: {
+      id: req.params.id
     }
   }).catch(function (err) {
     res.json({
       err: err.message
     })
   }).then(function (memo) {
-    res.json({
-      status: "Data deleted",
-      memo: memo
-    })
+    res.json("Data deleted")
   })
 })
 
