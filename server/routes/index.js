@@ -6,7 +6,7 @@ var Memos = models.Memo
 /* GET home page. */
 router.get('/', function(req, res, next) {
   Memos.findAll().then(function (memo) {
-    res.render('index', { title: 'Memo', memo: memo });
+    res.json(memo)
   }).catch(function (err) {
     res.json({
       err: err.message
@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
   })
 });
 
-router.post('/api/createMemo', function (req, res) {
+router.post('/createMemo', function (req, res) {
 
   // console.log("create")
   Memos.create({
@@ -32,7 +32,7 @@ router.post('/api/createMemo', function (req, res) {
   })
 })
 
-router.get('/api/getUpdate/:id', function (req, res) {
+router.get('/getUpdate/:id', function (req, res) {
   // console.log(req.params.id)
   Memos.findOne({
     where: {
@@ -47,7 +47,7 @@ router.get('/api/getUpdate/:id', function (req, res) {
   })
 })
 
-router.put('/api/updateMemo', function (req, res) {
+router.put('/updateMemo', function (req, res) {
   // console.log(req.body)
   Memos.update({
     title: req.body.title,
@@ -67,7 +67,7 @@ router.put('/api/updateMemo', function (req, res) {
   })
 })
 
-router.delete('/api/deleteMemo', function (req, res) {
+router.delete('/deleteMemo', function (req, res) {
   Memos.destroy({
     where: {
       id: req.body.id
